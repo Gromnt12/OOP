@@ -1,7 +1,10 @@
 package ru.nsu.bukhanov;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class HeapSortTest {
 
@@ -52,6 +55,7 @@ public class HeapSortTest {
         int[] input = null;
         assertDoesNotThrow(() -> HeapSort.heapsort(input));
     }
+
     @Test
     public void testLargeArray() {
         int[] input = {9, 8, 7, 6, 5, 4, 3, 2, 1, 0};

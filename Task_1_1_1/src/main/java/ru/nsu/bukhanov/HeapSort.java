@@ -1,12 +1,10 @@
 package ru.nsu.bukhanov;
-/**класс который реализует пирамидальную сортировку*/
+
+/**
+ * класс который реализует пирамидальную сортировку
+ */
 public class HeapSort {
 
-    /**
-     * Основной метод для сортировки массива с помощью пирамидальной сортировки
-     * @param arr массив для сортировки
-     * @return отсортированный массив
-     */
     public static int[] heapsort(int[] arr) {
         if (arr == null || arr.length <= 1) {
             return arr;
@@ -27,10 +25,7 @@ public class HeapSort {
     }
 
     /**
-     * Преобразует поддерево с корнем в узле i в max-heap
-     * @param arr массив
-     * @param n размер кучи
-     * @param i корневой узел
+     *
      */
     private static void heapify(int[] arr, int n, int i) {
         int largest = i;
@@ -51,8 +46,7 @@ public class HeapSort {
     }
 
     /**
-     * Вспомогательный метод для вывода массива в консоль
-     * @param arr массив для вывода
+     * принт массив
      */
     public static void printArray(int[] arr) {
         for (int value : arr) {
