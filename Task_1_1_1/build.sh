@@ -13,7 +13,7 @@ javadoc -d build/docs -sourcepath src/main/java -subpackages ru.nsu.bukhanov
 
 # Создание JAR-файла
 jar --create --file=build/heapsort.jar \
-  --main-class=ru.nsu.bukhanov.MAIN \
+  --main-class=ru.nsu.bukhanov.Main \
   -C build/classes .
 
 # Запуск приложения

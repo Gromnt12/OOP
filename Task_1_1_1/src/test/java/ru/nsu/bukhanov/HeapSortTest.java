@@ -72,8 +72,18 @@ public class HeapSortTest {
 
     @Test
     public void testPerformance() {
+        testPerformance(10000);
+        testPerformance(10000);
+        testPerformance(10000);
+        testPerformance(10000);
+        testPerformance(10000);
+        for (int i = 0; i < 100; i++) {
+            testPerformance(i*10000);
+        }
+    }
+
+    public void testPerformance(int size) {
         // Тест производительности для проверки сложности O(n log n)
-        int size = 10000;
         int[] largeArray = new int[size];
         for (int i = 0; i < size; i++) {
             largeArray[i] = size - i - 1;

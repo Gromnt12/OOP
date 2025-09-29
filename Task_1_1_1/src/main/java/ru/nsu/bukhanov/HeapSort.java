@@ -3,7 +3,7 @@ package ru.nsu.bukhanov;
 /**
  * класс который реализует пирамидальную сортировку
  */
-public class HeapSort {
+public final class HeapSort {
 
     public static int[] heapsort(int[] arr) {
         if (arr == null || arr.length <= 1) {
@@ -24,9 +24,6 @@ public class HeapSort {
         return arr;
     }
 
-    /**
-     *
-     */
     private static void heapify(int[] arr, int n, int i) {
         int largest = i;
         int left = 2 * i + 1;
@@ -43,15 +40,5 @@ public class HeapSort {
             arr[largest] = swap;
             heapify(arr, n, largest);
         }
-    }
-
-    /**
-     * принт массив
-     */
-    public static void printArray(int[] arr) {
-        for (int value : arr) {
-            System.out.print(value + " ");
-        }
-        System.out.println();
     }
 }
