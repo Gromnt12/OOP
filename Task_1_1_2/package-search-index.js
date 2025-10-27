@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"ru.nsu.bukhanov"},{"l":"ru.nsu.bukhanov.game"},{"l":"ru.nsu.bukhanov.io"},{"l":"ru.nsu.bukhanov.model"},{"l":"ru.nsu.bukhanov.participants"}];updateSearchResults();
