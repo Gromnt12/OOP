@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ru.nsu.bukhanov.DeckTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2025-10-27T01:05:54" hostname="KRUTOI" time="0.015">
-  <properties/>
-  <testcase name="throwsWhenEmpty()" classname="ru.nsu.bukhanov.DeckTest" time="0.007"/>
-  <testcase name="buildsSingleDeckWith52Cards()" classname="ru.nsu.bukhanov.DeckTest" time="0.005"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
