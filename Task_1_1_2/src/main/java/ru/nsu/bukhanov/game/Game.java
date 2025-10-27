@@ -12,34 +12,28 @@ public class Game {
     private final IO io;
     private final int decksCount;
     private final Random random;
-    private final Deck fixedDeckOrNull;
 
     private int playerWins = 0;
     private int dealerWins = 0;
     private int round = 0;
 
     public Game(IO io, int decksCount, Random random) {
-        this(io, decksCount, random, null);
-    }
-
-    public Game(IO io, int decksCount, Random random, Deck fixedDeck) {
         this.io = io;
         this.decksCount = decksCount <= 0 ? 1 : decksCount;
         this.random = random;
-        this.fixedDeckOrNull = fixedDeck;
     }
 
     public void start() {
         io.println("Добро пожаловать в Блэкджек!");
-        Deck deck = (fixedDeckOrNull != null) ? fixedDeckOrNull : new Deck(decksCount, random);
-
+        Deck deck = buildDeck();
+        
         boolean continuePlaying = true;
         while (continuePlaying) {
             round++;
             io.println("");
             io.println("Раунд " + round);
 
-            if (fixedDeckOrNull == null && deck.remaining() < 15) {
+            if (deck.remaining() < 15) {
                 deck = new Deck(decksCount, random);
                 io.println("Перетасовываем колоду...");
             }
@@ -53,6 +47,10 @@ public class Game {
         io.println("Спасибо за игру!");
     }
 
+    Deck buildDeck() {
+        return new Deck(decksCount, random);
+    }
+    
     private void playSingleRound(Deck deck) {
         Hand player = new Hand();
         Dealer dealer = new Dealer();
