@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Rank.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Task_1_1_2</a> &gt; <a href="index.source.html" class="el_package">ru.nsu.bukhanov.model</a> &gt; <span class="el_source">Rank.java</span></div><h1>Rank.java</h1><pre class="source lang-java linenums">package ru.nsu.bukhanov.model;
+
+<span class="fc" id="L3">public enum Rank {</span>
+<span class="fc" id="L4">    TWO(&quot;Двойка&quot;, 2),</span>
+<span class="fc" id="L5">    THREE(&quot;Тройка&quot;, 3),</span>
+<span class="fc" id="L6">    FOUR(&quot;Четверка&quot;, 4),</span>
+<span class="fc" id="L7">    FIVE(&quot;Пятерка&quot;, 5),</span>
+<span class="fc" id="L8">    SIX(&quot;Шестерка&quot;, 6),</span>
+<span class="fc" id="L9">    SEVEN(&quot;Семерка&quot;, 7),</span>
+<span class="fc" id="L10">    EIGHT(&quot;Восьмерка&quot;, 8),</span>
+<span class="fc" id="L11">    NINE(&quot;Девятка&quot;, 9),</span>
+<span class="fc" id="L12">    TEN(&quot;Десятка&quot;, 10),</span>
+<span class="fc" id="L13">    JACK(&quot;Валет&quot;, 10),</span>
+<span class="fc" id="L14">    QUEEN(&quot;Дама&quot;, 10),</span>
+<span class="fc" id="L15">    KING(&quot;Король&quot;, 10),</span>
+<span class="fc" id="L16">    ACE(&quot;Туз&quot;, 11);</span>
+
+    private final String ru;
+    private final int points;
+
+<span class="fc" id="L21">    Rank(String ru, int points) {</span>
+<span class="fc" id="L22">        this.ru = ru;</span>
+<span class="fc" id="L23">        this.points = points;</span>
+<span class="fc" id="L24">    }</span>
+
+    public String ru() {
+<span class="fc" id="L27">        return ru;</span>
+    }
+
+    public int points() {
+<span class="fc" id="L31">        return points;</span>
+    }
+
+    public boolean isAce() {
+<span class="fc bfc" id="L35" title="All 2 branches covered.">        return this == ACE;</span>
+    }
+
+    public boolean isTenValue() {
+<span class="fc bfc" id="L39" title="All 2 branches covered.">        return points == 10;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

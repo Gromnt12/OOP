@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Hand.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Task_1_1_2</a> &gt; <a href="index.source.html" class="el_package">ru.nsu.bukhanov.model</a> &gt; <span class="el_source">Hand.java</span></div><h1>Hand.java</h1><pre class="source lang-java linenums">package ru.nsu.bukhanov.model;
+
+import java.util.*;
+
+<span class="fc" id="L5">public class Hand {</span>
+<span class="fc" id="L6">    private final List&lt;Card&gt; cards = new ArrayList&lt;&gt;();</span>
+
+    public void add(Card c) {
+<span class="fc" id="L9">        cards.add(c);</span>
+<span class="fc" id="L10">    }</span>
+
+    public List&lt;Card&gt; cards() {
+<span class="nc" id="L13">        return Collections.unmodifiableList(cards);</span>
+    }
+
+    public int bestValue() {
+<span class="fc" id="L17">        int sum = 0;</span>
+<span class="fc" id="L18">        int aces = 0;</span>
+<span class="fc bfc" id="L19" title="All 2 branches covered.">        for (Card c : cards) {</span>
+<span class="fc" id="L20">            sum += c.baseValue();</span>
+<span class="fc bfc" id="L21" title="All 2 branches covered.">            if (c.rank().isAce()) aces++;</span>
+<span class="fc" id="L22">        }</span>
+        // корректируем тузы: пока перебор (&gt;21) и есть тузы — уменьшаем по 10 (11 -&gt; 1)
+<span class="fc bfc" id="L24" title="All 4 branches covered.">        while (sum &gt; 21 &amp;&amp; aces &gt; 0) {</span>
+<span class="fc" id="L25">            sum -= 10;</span>
+<span class="fc" id="L26">            aces--;</span>
+        }
+<span class="fc" id="L28">        return sum;</span>
+    }
+
+    public boolean isBlackjack() {
+<span class="fc bfc" id="L32" title="All 2 branches covered.">        if (cards.size() != 2) return false;</span>
+<span class="pc bpc" id="L33" title="1 of 4 branches missed.">        boolean hasAce = cards.get(0).rank().isAce() || cards.get(1).rank().isAce();</span>
+<span class="fc bfc" id="L34" title="All 4 branches covered.">        boolean hasTenVal = cards.get(0).rank().isTenValue() || cards.get(1).rank().isTenValue();</span>
+<span class="pc bpc" id="L35" title="1 of 4 branches missed.">        return hasAce &amp;&amp; hasTenVal;</span>
+    }
+
+    public boolean isBust() {
+<span class="fc bfc" id="L39" title="All 2 branches covered.">        return bestValue() &gt; 21;</span>
+    }
+
+    public String toRuList(boolean hideSecond) {
+<span class="fc" id="L43">    StringBuilder sb = new StringBuilder(&quot;[&quot;);</span>
+<span class="fc bfc" id="L44" title="All 2 branches covered.">        for (int i = 0; i &lt; cards.size(); i++) {</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">            if (i &gt; 0) sb.append(&quot;, &quot;);</span>
+<span class="fc bfc" id="L46" title="All 4 branches covered.">            if (hideSecond &amp;&amp; i == 1) {</span>
+<span class="fc" id="L47">                sb.append(&quot;&lt;закрытая карта&gt; ]&quot;);</span>
+<span class="fc" id="L48">                return sb.toString();</span>
+            } else {
+<span class="fc" id="L50">                sb.append(cards.get(i).toRu());</span>
+            }
+        }
+<span class="fc" id="L53">        sb.append(&quot;]&quot;);</span>
+<span class="fc" id="L54">        return sb.toString();</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

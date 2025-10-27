@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.nsu.bukhanov.GamePlayerBustTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-10-27T01:05:54" hostname="KRUTOI" time="0.003">
+  <properties/>
+  <testcase name="playerBustsOnHit()" classname="ru.nsu.bukhanov.GamePlayerBustTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
