@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EvalUtils.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Task_1_1_3</a> &gt; <a href="index.source.html" class="el_package">ru.nsu.bukhanov</a> &gt; <span class="el_source">EvalUtils.java</span></div><h1>EvalUtils.java</h1><pre class="source lang-java linenums">package ru.nsu.bukhanov;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public final class EvalUtils {
+
+    private EvalUtils() {
+    }
+
+    public static Map&lt;String, Double&gt; parseAssignments(String assignments) {
+<span class="fc" id="L12">        Map&lt;String, Double&gt; result = new HashMap&lt;&gt;();</span>
+<span class="pc bpc" id="L13" title="2 of 4 branches missed.">        if (assignments == null || assignments.isBlank()) {</span>
+<span class="nc" id="L14">            return result;</span>
+        }
+<span class="fc" id="L16">        String[] parts = assignments.split(&quot;;&quot;);</span>
+<span class="fc bfc" id="L17" title="All 2 branches covered.">        for (String part : parts) {</span>
+<span class="fc" id="L18">            String trimmed = part.trim();</span>
+<span class="pc bpc" id="L19" title="1 of 2 branches missed.">            if (trimmed.isEmpty()) {</span>
+<span class="nc" id="L20">                continue;</span>
+            }
+<span class="fc" id="L22">            String[] kv = trimmed.split(&quot;=&quot;);</span>
+<span class="pc bpc" id="L23" title="1 of 2 branches missed.">            if (kv.length != 2) {</span>
+<span class="nc" id="L24">                throw new IllegalArgumentException(&quot;Bad assignment: &quot; + trimmed);</span>
+            }
+<span class="fc" id="L26">            String name = kv[0].trim();</span>
+<span class="fc" id="L27">            double value = Double.parseDouble(kv[1].trim());</span>
+<span class="fc" id="L28">            result.put(name, value);</span>
+        }
+<span class="fc" id="L30">        return result;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

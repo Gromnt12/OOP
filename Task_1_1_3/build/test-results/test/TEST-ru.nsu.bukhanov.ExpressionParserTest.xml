@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.nsu.bukhanov.ExpressionParserTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2025-11-09T21:35:43.504Z" hostname="KRUTOI" time="0.005">
+  <properties/>
+  <testcase name="testParseNested()" classname="ru.nsu.bukhanov.ExpressionParserTest" time="0.001"/>
+  <testcase name="testParseSimple()" classname="ru.nsu.bukhanov.ExpressionParserTest" time="0.0"/>
+  <testcase name="testParseVariableName()" classname="ru.nsu.bukhanov.ExpressionParserTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

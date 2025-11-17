@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ExpressionParser.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Task_1_1_3</a> &gt; <a href="index.source.html" class="el_package">ru.nsu.bukhanov</a> &gt; <span class="el_source">ExpressionParser.java</span></div><h1>ExpressionParser.java</h1><pre class="source lang-java linenums">package ru.nsu.bukhanov;
+
+public class ExpressionParser {
+
+    private final String input;
+<span class="fc" id="L6">    private int pos = 0;</span>
+
+<span class="fc" id="L8">    public ExpressionParser(String input) {</span>
+        // убираем пробелы
+<span class="fc" id="L10">        this.input = input.replaceAll(&quot;\\s+&quot;, &quot;&quot;);</span>
+<span class="fc" id="L11">    }</span>
+
+    public Expression parse() {
+<span class="fc" id="L14">        Expression expr = parseExpression();</span>
+<span class="pc bpc" id="L15" title="1 of 2 branches missed.">        if (pos != input.length()) {</span>
+<span class="nc" id="L16">            throw new IllegalArgumentException(&quot;Unexpected tail: &quot; + input.substring(pos));</span>
+        }
+<span class="fc" id="L18">        return expr;</span>
+    }
+
+    private Expression parseExpression() {
+<span class="pc bpc" id="L22" title="1 of 2 branches missed.">        if (pos &gt;= input.length()) {</span>
+<span class="nc" id="L23">            throw new IllegalArgumentException(&quot;Unexpected end of input&quot;);</span>
+        }
+<span class="fc" id="L25">        char c = input.charAt(pos);</span>
+<span class="fc bfc" id="L26" title="All 2 branches covered.">        if (c == '(') {</span>
+<span class="fc" id="L27">            pos++; // skip '('</span>
+<span class="fc" id="L28">            Expression left = parseExpression();</span>
+<span class="pc bpc" id="L29" title="1 of 2 branches missed.">            if (pos &gt;= input.length()) {</span>
+<span class="nc" id="L30">                throw new IllegalArgumentException(&quot;Operator expected at position &quot; + pos);</span>
+            }
+<span class="fc" id="L32">            char op = input.charAt(pos++);</span>
+<span class="fc" id="L33">            Expression right = parseExpression();</span>
+<span class="pc bpc" id="L34" title="2 of 4 branches missed.">            if (pos &gt;= input.length() || input.charAt(pos) != ')') {</span>
+<span class="nc" id="L35">                throw new IllegalArgumentException(&quot;')' expected at position &quot; + pos);</span>
+            }
+<span class="fc" id="L37">            pos++; // skip ')'</span>
+<span class="pc bpc" id="L38" title="2 of 5 branches missed.">            switch (op) {</span>
+                case '+':
+<span class="fc" id="L40">                    return new Add(left, right);</span>
+                case '-':
+<span class="fc" id="L42">                    return new Sub(left, right);</span>
+                case '*':
+<span class="fc" id="L44">                    return new Mul(left, right);</span>
+                case '/':
+<span class="nc" id="L46">                    return new Div(left, right);</span>
+                default:
+<span class="nc" id="L48">                    throw new IllegalArgumentException(&quot;Unknown operator: &quot; + op);</span>
+            }
+<span class="fc bfc" id="L50" title="All 2 branches covered.">        } else if (Character.isDigit(c)) {</span>
+<span class="fc" id="L51">            return parseNumber();</span>
+        } else {
+<span class="fc" id="L53">            return parseVariable();</span>
+        }
+    }
+
+    private Number parseNumber() {
+<span class="fc" id="L58">        int start = pos;</span>
+<span class="fc" id="L59">        boolean dotSeen = false;</span>
+<span class="pc bpc" id="L60" title="1 of 2 branches missed.">        while (pos &lt; input.length()) {</span>
+<span class="fc" id="L61">            char ch = input.charAt(pos);</span>
+<span class="fc bfc" id="L62" title="All 2 branches covered.">            if (Character.isDigit(ch)) {</span>
+<span class="fc" id="L63">                pos++;</span>
+<span class="pc bpc" id="L64" title="3 of 4 branches missed.">            } else if (ch == '.' &amp;&amp; !dotSeen) {</span>
+<span class="nc" id="L65">                dotSeen = true;</span>
+<span class="nc" id="L66">                pos++;</span>
+            } else {
+                break;
+            }
+<span class="fc" id="L70">        }</span>
+<span class="fc" id="L71">        double value = Double.parseDouble(input.substring(start, pos));</span>
+<span class="fc" id="L72">        return new Number(value);</span>
+    }
+
+    private Variable parseVariable() {
+<span class="fc" id="L76">        int start = pos;</span>
+<span class="pc bpc" id="L77" title="1 of 4 branches missed.">        while (pos &lt; input.length() &amp;&amp; Character.isLetterOrDigit(input.charAt(pos))) {</span>
+<span class="fc" id="L78">            pos++;</span>
+        }
+<span class="fc" id="L80">        String name = input.substring(start, pos);</span>
+<span class="fc" id="L81">        return new Variable(name);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

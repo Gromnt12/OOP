@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Div.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Task_1_1_3</a> &gt; <a href="index.source.html" class="el_package">ru.nsu.bukhanov</a> &gt; <span class="el_source">Div.java</span></div><h1>Div.java</h1><pre class="source lang-java linenums">package ru.nsu.bukhanov;
+
+import java.util.Map;
+
+public class Div extends BinaryOperation {
+
+    public Div(Expression left, Expression right) {
+<span class="fc" id="L8">        super(left, right);</span>
+<span class="fc" id="L9">    }</span>
+
+    @Override
+    public double eval(Map&lt;String, Double&gt; variables) {
+<span class="nc" id="L13">        return left.eval(variables) / right.eval(variables);</span>
+    }
+
+    @Override
+    public Expression derivative(String varName) {
+        // (f / g)' = (f' * g - f * g') / (g * g)
+<span class="fc" id="L19">        Expression fPrime = left.derivative(varName);</span>
+<span class="fc" id="L20">        Expression gPrime = right.derivative(varName);</span>
+<span class="fc" id="L21">        Expression numerator = new Sub(</span>
+                new Mul(fPrime, right),
+                new Mul(left, gPrime)
+        );
+<span class="fc" id="L25">        Expression denominator = new Mul(right, right);</span>
+<span class="fc" id="L26">        return new Div(numerator, denominator);</span>
+    }
+
+    @Override
+    public String print() {
+<span class="fc" id="L31">        return &quot;(&quot; + left.print() + &quot;/&quot; + right.print() + &quot;)&quot;;</span>
+    }
+
+    @Override
+    public Expression simplify() {
+<span class="nc" id="L36">        Expression ls = left.simplify();</span>
+<span class="nc" id="L37">        Expression rs = right.simplify();</span>
+
+        // деление двух чисел
+<span class="nc bnc" id="L40" title="All 4 branches missed.">        if (ls instanceof Number &amp;&amp; rs instanceof Number) {</span>
+<span class="nc" id="L41">            double v1 = ((Number) ls).getValue();</span>
+<span class="nc" id="L42">            double v2 = ((Number) rs).getValue();</span>
+<span class="nc" id="L43">            return new Number(v1 / v2);</span>
+        }
+
+        // деление на 1
+<span class="nc bnc" id="L47" title="All 4 branches missed.">        if (rs instanceof Number &amp;&amp; ((Number) rs).getValue() == 1.0) {</span>
+<span class="nc" id="L48">            return ls;</span>
+        }
+
+        // (k * expr) / k -&gt; expr  (и похожие)
+<span class="nc bnc" id="L52" title="All 4 branches missed.">        if (ls instanceof Mul &amp;&amp; rs instanceof Number) {</span>
+<span class="nc" id="L53">            Mul lMul = (Mul) ls;</span>
+<span class="nc bnc" id="L54" title="All 2 branches missed.">            if (lMul.getLeft() instanceof Number) {</span>
+<span class="nc" id="L55">                double num = ((Number) lMul.getLeft()).getValue();</span>
+<span class="nc" id="L56">                double den = ((Number) rs).getValue();</span>
+<span class="nc bnc" id="L57" title="All 2 branches missed.">                if (den != 0.0) {</span>
+<span class="nc" id="L58">                    double div = num / den;</span>
+<span class="nc bnc" id="L59" title="All 2 branches missed.">                    if (div == 1.0) {</span>
+<span class="nc" id="L60">                        return lMul.getRight().simplify();</span>
+                    } else {
+<span class="nc" id="L62">                        return new Mul(new Number(div), lMul.getRight()).simplify();</span>
+                    }
+                }
+            }
+        }
+
+<span class="nc" id="L68">        return new Div(ls, rs);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>
