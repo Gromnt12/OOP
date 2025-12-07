@@ -1,0 +1,6 @@
+# graph3: ветвящийся DAG
+Start: A B
+A: C
+B: C
+C: D
+D:
