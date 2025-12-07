@@ -1,4 +1,4 @@
-# graph3: ветвящийся DAG
+# ветвящийся DAG
 Start: A B
 A: C
 B: C
