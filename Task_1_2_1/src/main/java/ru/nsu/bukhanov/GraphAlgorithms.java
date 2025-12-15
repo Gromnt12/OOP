@@ -1,12 +1,15 @@
 package ru.nsu.bukhanov;
 
 
-import java.util.*;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Deque;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+
 
 public final class GraphAlgorithms {
-
-    private GraphAlgorithms() {
-    }
 
     public static List<String> topologicalSort(Graph graph) {
         Map<String, Integer> indegree = new HashMap<>();
@@ -46,5 +49,7 @@ public final class GraphAlgorithms {
         }
 
         return result;
+    }
+    private GraphAlgorithms() {
     }
 }

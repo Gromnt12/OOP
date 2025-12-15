@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Set;
-
+/**
+ * Интерфейс, представляющий граф.
+ * Описывает основные методы для работы с вершинами и ребрами.
+ */
 public interface Graph {
 
     boolean addVertex(String v);
