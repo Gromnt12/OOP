@@ -7,10 +7,10 @@ import java.util.Objects;
  * Узел хеш-таблицы: хранит пару (key, value) и ссылку на следующий узел.
  */
 class HashTableNode<K, V> implements Map.Entry<K, V> {
-    final int hash;
-    final K key;
-    V value;
-    HashTableNode<K, V> next;
+    private final int hash;
+    private final K key;
+    private V value;
+    private HashTableNode<K, V> next;
 
     HashTableNode(int hash, K key, V value, HashTableNode<K, V> next) {
         this.hash = hash;
@@ -46,10 +46,9 @@ class HashTableNode<K, V> implements Map.Entry<K, V> {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Map.Entry)) {
+        if (!(o instanceof Map.Entry<?, ?> e)) {
             return false;
         }
-        Map.Entry<?, ?> e = (Map.Entry<?, ?>) o;
         return Objects.equals(key, e.getKey())
                 && Objects.equals(value, e.getValue());
     }
@@ -57,5 +56,17 @@ class HashTableNode<K, V> implements Map.Entry<K, V> {
     @Override
     public String toString() {
         return key + "=" + value;
+    }
+
+    int getHash() {
+        return hash;
+    }
+
+    HashTableNode<K, V> getNext() {
+        return next;
+    }
+
+    void setNext(HashTableNode<K, V> node) {
+        next = node;
     }
 }

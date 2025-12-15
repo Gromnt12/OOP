@@ -1,6 +1,10 @@
 package ru.nsu.bukhanov;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Objects;
 
 /**
  * Обобщённая хеш-таблица HashTable<K, V>.
@@ -12,14 +16,14 @@ import java.util.*;
  */
 public class HashTable<K, V> implements Iterable<Map.Entry<K, V>> {
 
-    static final int DEFAULT_CAPACITY = 16;
-    static final float DEFAULT_LOAD_FACTOR = 0.75f;
+    private static final int DEFAULT_CAPACITY = 16;
+    private static final float DEFAULT_LOAD_FACTOR = 0.75f;
 
     // package-private, чтобы к ним мог обратиться HashTableIterator
-    HashTableNode<K, V>[] table;
-    int size;
-    final float loadFactor;
-    int modCount;
+    private HashTableNode<K, V>[] table;
+    private int size;
+    private final float loadFactor;
+    private int modCount;
 
     public HashTable() {
         this(DEFAULT_CAPACITY, DEFAULT_LOAD_FACTOR);
@@ -49,57 +53,6 @@ public class HashTable<K, V> implements Iterable<Map.Entry<K, V>> {
         this.modCount = 0;
     }
 
-    // ======= Вспомогательные методы =======
-
-    private int hash(Object key) {
-        int h = key.hashCode();
-        h ^= (h >>> 16);
-        return h;
-    }
-
-    private int indexFor(int hash, int length) {
-        return hash & (length - 1);
-    }
-
-    HashTableNode<K, V> getNode(K key) {
-        Objects.requireNonNull(key, "key cannot be null");
-        if (size == 0) {
-            return null;
-        }
-        int hash = hash(key);
-        int index = indexFor(hash, table.length);
-        HashTableNode<K, V> node = table[index];
-        while (node != null) {
-            if (node.hash == hash && Objects.equals(node.key, key)) {
-                return node;
-            }
-            node = node.next;
-        }
-        return null;
-    }
-
-    @SuppressWarnings("unchecked")
-    void resize() {
-        int newCapacity = table.length << 1;
-        HashTableNode<K, V>[] newTable = (HashTableNode<K, V>[]) new HashTableNode[newCapacity];
-
-        for (HashTableNode<K, V> head : table) {
-            HashTableNode<K, V> node = head;
-            while (node != null) {
-                HashTableNode<K, V> next = node.next;
-                int index = indexFor(node.hash, newCapacity);
-                node.next = newTable[index];
-                newTable[index] = node;
-                node = next;
-            }
-        }
-
-        table = newTable;
-        modCount++;
-    }
-
-    // ======= Публичный API =======
-
     public int size() {
         return size;
     }
@@ -123,12 +76,12 @@ public class HashTable<K, V> implements Iterable<Map.Entry<K, V>> {
         if (node == null) {
             throw new NoSuchElementException("Key not found: " + key);
         }
-        return node.value;
+        return node.getValue();
     }
 
     public V getOrDefault(K key, V defaultValue) {
         HashTableNode<K, V> node = getNode(key);
-        return node == null ? defaultValue : node.value;
+        return node == null ? defaultValue : node.getValue();
     }
 
     public V put(K key, V value) {
@@ -139,12 +92,12 @@ public class HashTable<K, V> implements Iterable<Map.Entry<K, V>> {
 
         HashTableNode<K, V> node = table[index];
         while (node != null) {
-            if (node.hash == hash && Objects.equals(node.key, key)) {
-                V old = node.value;
-                node.value = value;
+            if (node.getHash() == hash && Objects.equals(node.getKey(), key)) {
+                V old = node.getValue();
+                node.setValue(value);
                 return old;
             }
-            node = node.next;
+            node = node.getNext();
         }
 
         HashTableNode<K, V> newNode = new HashTableNode<>(hash, key, value, table[index]);
@@ -164,7 +117,7 @@ public class HashTable<K, V> implements Iterable<Map.Entry<K, V>> {
         if (node == null) {
             throw new NoSuchElementException("Key not found: " + key);
         }
-        node.value = newValue;
+        node.setValue(newValue);
         // модификации структуры нет, значит и modCount не трогаем
     }
 
@@ -181,18 +134,18 @@ public class HashTable<K, V> implements Iterable<Map.Entry<K, V>> {
         HashTableNode<K, V> prev = null;
 
         while (node != null) {
-            if (node.hash == hash && Objects.equals(node.key, key)) {
+            if (node.getHash() == hash && Objects.equals(node.getKey(), key)) {
                 if (prev == null) {
-                    table[index] = node.next;
+                    table[index] = node.getNext();
                 } else {
-                    prev.next = node.next;
+                    prev.setNext(node.getNext());
                 }
                 size--;
                 modCount++;
-                return node.value;
+                return node.getValue();
             }
             prev = node;
-            node = node.next;
+            node = node.getNext();
         }
 
         return null;
@@ -261,5 +214,66 @@ public class HashTable<K, V> implements Iterable<Map.Entry<K, V>> {
         }
         sb.append('}');
         return sb.toString();
+    }
+    // ======= Вспомогательные методы =======
+
+    private HashTableNode<K, V> getNode(K key) {
+        Objects.requireNonNull(key, "key cannot be null");
+        if (size == 0) {
+            return null;
+        }
+        int hash = hash(key);
+        int index = indexFor(hash, table.length);
+        HashTableNode<K, V> node = table[index];
+        while (node != null) {
+            if (node.getHash() == hash && Objects.equals(node.getKey(), key)) {
+                return node;
+            }
+            node = node.getNext();
+        }
+        return null;
+    }
+
+    @SuppressWarnings("unchecked")
+    private void resize() {
+        int newCapacity = table.length << 1;
+        HashTableNode<K, V>[] newTable = (HashTableNode<K, V>[]) new HashTableNode[newCapacity];
+
+        for (HashTableNode<K, V> head : table) {
+            HashTableNode<K, V> node = head;
+            while (node != null) {
+                HashTableNode<K, V> next = node.getNext();
+                int index = indexFor(node.getHash(), newCapacity);
+                node.setNext(newTable[index]);
+                newTable[index] = node;
+                node = next;
+            }
+        }
+
+        table = newTable;
+        modCount++;
+    }
+
+    private int hash(Object key) {
+        int h = key.hashCode();
+        h ^= (h >>> 16);
+        return h;
+    }
+
+    private int indexFor(int hash, int length) {
+        return hash & (length - 1);
+    }
+
+    int getLength() {
+        return table.length;
+    }
+
+
+    HashTableNode<K, V> getBucket(int bucketIndex) {
+        return table[bucketIndex];
+    }
+
+    int getModCount() {
+        return modCount;
     }
 }
