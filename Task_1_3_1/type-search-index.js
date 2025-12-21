@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"ru.nsu.bukhanov","l":"Main"},{"p":"ru.nsu.bukhanov","l":"SubstringFinder"},{"p":"ru.nsu.bukhanov","l":"Utf8CodePointReader"}];updateSearchResults();
