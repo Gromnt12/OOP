@@ -78,7 +78,13 @@ loadScripts(document, 'script');</script>
 <h2 class="title" id="I:O">O</h2>
 <dl class="index">
 <dt><a href="ru/nsu/bukhanov/Utf8CodePointReader.html#open(java.nio.file.Path)" class="member-name-link">open(Path)</a> - Static method in class ru.nsu.bukhanov.<a href="ru/nsu/bukhanov/Utf8CodePointReader.html" title="class in ru.nsu.bukhanov">Utf8CodePointReader</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">TODO
+ Если после старшего суррогата (high surrogate, U+D800-U+DBFF) в последовательности идет не младший суррогат (low surrogate, U
+ +DC00-U+DFFF), а другой байт, то это невалидная последовательность Юникода (Unicode), скорее всего, из-за ошибки в данных,
+ обрыва передачи или неправильного декодирования, так как старший суррогат требует обязательного продолжения младшим для
+ формирования полного символа (>= 10000_16).</div>
+</dd>
 </dl>
 <h2 class="title" id="I:R">R</h2>
 <dl class="index">

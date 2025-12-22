@@ -104,7 +104,13 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="Utf8CodePointReader.html" title="class in ru.nsu.bukhanov">Utf8CodePointReader</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#open(java.nio.file.Path)" class="member-name-link">open</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;file)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">TODO
+ Если после старшего суррогата (high surrogate, U+D800-U+DBFF) в последовательности идет не младший суррогат (low surrogate, U
+ +DC00-U+DFFF), а другой байт, то это невалидная последовательность Юникода (Unicode), скорее всего, из-за ошибки в данных,
+ обрыва передачи или неправильного декодирования, так как старший суррогат требует обязательного продолжения младшим для
+ формирования полного символа (>= 10000_16).</div>
+</div>
 </div>
 </div>
 </div>
@@ -127,7 +133,16 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 <h3>open</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="Utf8CodePointReader.html" title="class in ru.nsu.bukhanov">Utf8CodePointReader</a></span>&nbsp;<span class="element-name">open</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;file)</span>
                                 throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></span></div>
+<div class="block">TODO
+ Если после старшего суррогата (high surrogate, U+D800-U+DBFF) в последовательности идет не младший суррогат (low surrogate, U
+ +DC00-U+DFFF), а другой байт, то это невалидная последовательность Юникода (Unicode), скорее всего, из-за ошибки в данных,
+ обрыва передачи или неправильного декодирования, так как старший суррогат требует обязательного продолжения младшим для
+ формирования полного символа (>= 10000_16). В кодировках вроде UTF-8 (где байты 1-4) или UTF-16 (где пары байт для суррогатов) это
+ нарушает структуру, и программы выдают ошибку "surrogates not allowed" или похожую, пытаясь обработать это как отдельный симво</div>
 <dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>file</code> - </dd>
+<dt>Returns:</dt>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></code></dd>
 </dl>
