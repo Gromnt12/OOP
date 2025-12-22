@@ -2,8 +2,6 @@ package ru.nsu.bukhanov;
 
 public final class Main {
 
-
-
     public static void main(String[] args) {
         GradeBook gb = new GradeBook(EducationForm.PAID);
 
@@ -23,7 +21,5 @@ public final class Main {
         System.out.println("Можно перевестись на бюджет: " + gb.canTransferToBudget());
         System.out.println("Возможен красный диплом: " + gb.canGetHonoursDiploma());
         System.out.println("Возможна повышенная стипендия: " + gb.canGetIncreasedScholarship());
-    }
-    private Main() {
     }
 }
