@@ -29,6 +29,8 @@ public final class SubstringFinder {
         int[] pattern = needle.codePoints().toArray();
         return KmpStreamSearcher.search(file, pattern);
     }
+
     private SubstringFinder() {
+        // static methods only
     }
 }
