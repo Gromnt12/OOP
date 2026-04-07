@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class Main {
     public static void main(String[] args) {
         // Определяем N  из аргументов командной строки
-        int nFromArgs = 10;
+        int nFromArgs = 100;
         if (args.length > 0) {
             try {
                 nFromArgs = Integer.parseInt(args[0]);
@@ -40,9 +40,9 @@ public class Main {
         }
     }
     private static long measureSilent(NonPrimeFinder finder, long[] data) {
-        long start = System.currentTimeMillis();
+        long start = System.nanoTime();
         finder.hasNonPrime(data);
-        long end = System.currentTimeMillis();
+        long end = System.nanoTime();
         return (end - start);
     }
 }
