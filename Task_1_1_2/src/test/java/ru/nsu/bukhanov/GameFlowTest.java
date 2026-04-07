@@ -13,9 +13,8 @@ public class GameFlowTest {
     @Test
     void oneRoundStopsAndPrintsScore() {
         FakeIO io = new FakeIO();
-        // Игрок сразу "стоп", затем не продолжаем следующий раунд
         io.feed("0", "0");
-        Game game = new Game(io, 1, new Random(7));
+        Game game = new Game(io, new DeckFactory(1, new Random(7)));
         game.start();
 
         String out = io.output();

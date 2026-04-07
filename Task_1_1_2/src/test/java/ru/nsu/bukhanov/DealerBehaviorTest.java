@@ -13,7 +13,8 @@ import static org.junit.jupiter.api.Assertions.*;
 public class DealerBehaviorTest {
     @Test
     void dealerHitsUntil17OrMore() {
-        Deck deck = new Deck(1, new Random(123));
+        DeckFactory deckFactory = new DeckFactory(1, new Random(123));
+        Deck deck = deckFactory.create();
         Dealer dealer = new Dealer();
         IO io = new FakeIO();
 

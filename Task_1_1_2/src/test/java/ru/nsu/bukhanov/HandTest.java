@@ -1,8 +1,14 @@
 package ru.nsu.bukhanov;
 
-import ru.nsu.bukhanov.model.*;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import ru.nsu.bukhanov.model.Card;
+import ru.nsu.bukhanov.model.Hand;
+import ru.nsu.bukhanov.model.Rank;
+import ru.nsu.bukhanov.model.Suit;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class HandTest {
     @Test void aceCountsAs11WhenNoBust() {

@@ -1,9 +1,12 @@
 package ru.nsu.bukhanov;
 
 import org.junit.jupiter.api.Test;
-import ru.nsu.bukhanov.model.*;
+import ru.nsu.bukhanov.model.Card;
+import ru.nsu.bukhanov.model.Hand;
+import ru.nsu.bukhanov.model.Rank;
+import ru.nsu.bukhanov.model.Suit;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class HandFormatTest {
     @Test

@@ -1,5 +1,6 @@
 package ru.nsu.bukhanov.game;
 
+import ru.nsu.bukhanov.DeckFactory;
 import ru.nsu.bukhanov.io.IO;
 import ru.nsu.bukhanov.model.Card;
 import ru.nsu.bukhanov.model.Deck;
@@ -10,23 +11,23 @@ import java.util.Random;
 
 public class Game {
     private final IO io;
-    private final int decksCount;
-    private final Random random;
+
+    private final DeckFactory deckFactory;
+    private Deck deck;
 
     private int playerWins = 0;
     private int dealerWins = 0;
     private int round = 0;
 
-    public Game(IO io, int decksCount, Random random) {
+    public Game(IO io, DeckFactory deckFactory) {
         this.io = io;
-        this.decksCount = decksCount <= 0 ? 1 : decksCount;
-        this.random = random;
+        this.deckFactory = deckFactory;
     }
 
     public void start() {
         io.println("Добро пожаловать в Блэкджек!");
-        Deck deck = buildDeck();
-        
+
+        deck = deckFactory.create();
         boolean continuePlaying = true;
         while (continuePlaying) {
             round++;
@@ -34,7 +35,7 @@ public class Game {
             io.println("Раунд " + round);
 
             if (deck.remaining() < 15) {
-                deck = new Deck(decksCount, random);
+                deck = deckFactory.create();
                 io.println("Перетасовываем колоду...");
             }
 
@@ -47,10 +48,6 @@ public class Game {
         io.println("Спасибо за игру!");
     }
 
-    Deck buildDeck() {
-        return new Deck(decksCount, random);
-    }
-    
     private void playSingleRound(Deck deck) {
         Hand player = new Hand();
         Dealer dealer = new Dealer();

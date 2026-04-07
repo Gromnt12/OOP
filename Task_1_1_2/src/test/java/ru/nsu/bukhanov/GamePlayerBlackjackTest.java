@@ -15,7 +15,7 @@ public class GamePlayerBlackjackTest {
     void playerBlackjackWinsImmediately() {
         // Порядок выдачи:
         // p1, d1, p2, d2, ...
-        RiggedDeck deck = new RiggedDeck(Arrays.asList(
+        RiggedDeckFactory deckFactory = new RiggedDeckFactory(Arrays.asList(
                 new Card(Suit.SPADES, Rank.ACE),     // p1
                 new Card(Suit.CLUBS, Rank.NINE),     // d1
                 new Card(Suit.HEARTS, Rank.KING),    // p2 -> BJ
@@ -24,7 +24,7 @@ public class GamePlayerBlackjackTest {
 
         FakeIO io = new FakeIO();
         io.feed("0"); // не продолжаем второй раунд
-        Game game = new Game(io, 1, new Random(1), deck);
+        Game game = new Game(io, deckFactory);
         game.start();
         String out = io.output();
 
