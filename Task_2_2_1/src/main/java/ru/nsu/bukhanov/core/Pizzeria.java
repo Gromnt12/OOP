@@ -13,24 +13,24 @@ import java.util.List;
 public class Pizzeria {
     private final CustomQueue orderQueue;
     private final Warehouse warehouse;
-    private final List<Thread> bakerThreads = new ArrayList<>();
-    private final List<Thread> courierThreads = new ArrayList<>();
+    private final List<Baker> bakers = new ArrayList<>();
+    private final List<Courier> couriers = new ArrayList<>();
 
     public Pizzeria(PizzeriaConfig config) {
         this.orderQueue = new CustomQueue();
-        this.warehouse = new Warehouse(config.warehouseCapacity);
+        warehouse = new Warehouse(config.warehouseCapacity);
 
         for (int speed : config.bakersSpeeds) {
-            bakerThreads.add(new Thread(new Baker(speed, orderQueue, warehouse)));
+            bakers.add(new Baker(speed, orderQueue, warehouse));
         }
         for (int capacity : config.couriersCapacities) {
-            courierThreads.add(new Thread(new Courier(capacity, warehouse)));
+            couriers.add(new Courier(capacity, warehouse));
         }
     }
 
     public void start() {
-        bakerThreads.forEach(Thread::start);
-        courierThreads.forEach(Thread::start);
+        bakers.forEach(Thread::start);
+        couriers.forEach(Thread::start);
     }
 
     public void addOrder(Order order) {
@@ -40,8 +40,12 @@ public class Pizzeria {
     public void stopGracefully() {
         orderQueue.stopAccepting(); // Перестаем принимать новые заказы
 
+        for (Baker baker : bakers) {
+            baker.finish();
+        }
+
         // Ждем пока пекари доделают пиццы из очереди
-        for (Thread baker : bakerThreads) {
+        for (Baker baker : bakers) {
             try {
                 baker.join();
             } catch (InterruptedException e) {
@@ -49,8 +53,19 @@ public class Pizzeria {
             }
         }
 
-        for (Thread courier : courierThreads) {
-            courier.interrupt();
+        warehouse.finish();
+
+        for (Courier courier : couriers) {
+            courier.finish();
         }
+
+        for (Courier courie : couriers) {
+            try {
+                courie.join();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
+
     }
 }

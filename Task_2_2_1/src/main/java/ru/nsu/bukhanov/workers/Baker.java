@@ -5,10 +5,11 @@ import ru.nsu.bukhanov.model.OrderState;
 import ru.nsu.bukhanov.storage.CustomQueue;
 import ru.nsu.bukhanov.storage.Warehouse;
 
-public class Baker implements Runnable {
+public class Baker extends Thread {
     private final int speed;
     private final CustomQueue orderQueue;
     private final Warehouse warehouse;
+    private volatile boolean running = true;
 
     public Baker(int speed, CustomQueue orderQueue, Warehouse warehouse) {
         this.speed = speed;
@@ -19,9 +20,12 @@ public class Baker implements Runnable {
     @Override
     public void run() {
         try {
-            while (!Thread.currentThread().isInterrupted()) {
+            while (running) {
                 Order order = orderQueue.take();
-                if (order == null) break;
+                if (order == null) {
+                    //
+                    break;
+                }
 
                 order.setState(OrderState.BAKING);
                 Thread.sleep(speed);
@@ -30,5 +34,9 @@ public class Baker implements Runnable {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
+    }
+
+    public void finish() {
+        running = false;
     }
 }

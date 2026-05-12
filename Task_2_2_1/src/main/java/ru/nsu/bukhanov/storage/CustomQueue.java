@@ -6,24 +6,28 @@ import java.util.Queue;
 
 public class CustomQueue {
     private final Queue<Order> orders = new LinkedList<>();
-    private boolean isAccepting = true;
+    private boolean closed = false;
 
     public synchronized void put(Order order) {
-        if (isAccepting) {
-            orders.add(order);
-            notifyAll();
+        if (closed) {
+            return;
         }
+        orders.add(order);
+        notifyAll();
     }
 
     public synchronized Order take() throws InterruptedException {
-        while (orders.isEmpty() && isAccepting) {
+        if (orders.isEmpty() && closed) {
+            return null;
+        }
+        while (orders.isEmpty()) {
             wait();
         }
         return orders.poll();
     }
 
     public synchronized void stopAccepting() {
-        isAccepting = false;
+        closed = true;
         notifyAll();
     }
 }

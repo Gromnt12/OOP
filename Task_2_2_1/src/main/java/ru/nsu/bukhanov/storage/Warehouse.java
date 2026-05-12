@@ -11,6 +11,7 @@ import java.util.Queue;
 public class Warehouse {
     private final int capacity;
     private final Queue<Order> pizzas = new LinkedList<>();
+    private volatile boolean running = true;
 
     public Warehouse(int capacity) {
         this.capacity = capacity;
@@ -26,7 +27,7 @@ public class Warehouse {
     }
 
     public synchronized List<Order> take(int maxVolume) throws InterruptedException {
-        while (pizzas.isEmpty()) {
+        while (running && pizzas.isEmpty()) {
             wait(); // Курьер ожидает появления готовых пицц
         }
         List<Order> batch = new ArrayList<>();
@@ -35,5 +36,10 @@ public class Warehouse {
         }
         notifyAll();
         return batch;
+    }
+
+    public synchronized void finish() {
+        running = false;
+        notifyAll();
     }
 }
