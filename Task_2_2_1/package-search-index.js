@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"ru.nsu.bukhanov.config"},{"l":"ru.nsu.bukhanov.core"},{"l":"ru.nsu.bukhanov.model"},{"l":"ru.nsu.bukhanov.storage"},{"l":"ru.nsu.bukhanov.workers"}];updateSearchResults();
