@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"ru.nsu.bukhanov.snake"},{"l":"ru.nsu.bukhanov.snake.controller"},{"l":"ru.nsu.bukhanov.snake.model"},{"l":"ru.nsu.bukhanov.snake.model.food"},{"l":"ru.nsu.bukhanov.snake.view"}];updateSearchResults();
