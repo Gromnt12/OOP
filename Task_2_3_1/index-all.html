@@ -71,6 +71,16 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="ru/nsu/bukhanov/snake/model/Direction.html#DOWN" class="member-name-link">DOWN</a> - Enum constant in enum class ru.nsu.bukhanov.snake.model.<a href="ru/nsu/bukhanov/snake/model/Direction.html" title="enum class in ru.nsu.bukhanov.snake.model">Direction</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="ru/nsu/bukhanov/snake/view/GameView.html#drawBackground(int,int)" class="member-name-link">drawBackground(int, int)</a> - Method in class ru.nsu.bukhanov.snake.view.<a href="ru/nsu/bukhanov/snake/view/GameView.html" title="class in ru.nsu.bukhanov.snake.view">GameView</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="ru/nsu/bukhanov/snake/view/GameView.html#drawFood(ru.nsu.bukhanov.snake.model.Point,java.lang.String)" class="member-name-link">drawFood(Point, String)</a> - Method in class ru.nsu.bukhanov.snake.view.<a href="ru/nsu/bukhanov/snake/view/GameView.html" title="class in ru.nsu.bukhanov.snake.view">GameView</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="ru/nsu/bukhanov/snake/view/GameView.html#drawHUD(int,double,boolean,boolean,boolean,int,int)" class="member-name-link">drawHUD(int, double, boolean, boolean, boolean, int, int)</a> - Method in class ru.nsu.bukhanov.snake.view.<a href="ru/nsu/bukhanov/snake/view/GameView.html" title="class in ru.nsu.bukhanov.snake.view">GameView</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="ru/nsu/bukhanov/snake/view/GameView.html#drawObstacles(java.util.List)" class="member-name-link">drawObstacles(List&lt;Point&gt;)</a> - Method in class ru.nsu.bukhanov.snake.view.<a href="ru/nsu/bukhanov/snake/view/GameView.html" title="class in ru.nsu.bukhanov.snake.view">GameView</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="ru/nsu/bukhanov/snake/view/GameView.html#drawSnake(java.util.List)" class="member-name-link">drawSnake(List&lt;Point&gt;)</a> - Method in class ru.nsu.bukhanov.snake.view.<a href="ru/nsu/bukhanov/snake/view/GameView.html" title="class in ru.nsu.bukhanov.snake.view">GameView</a></dt>
+<dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:E">E</h2>
 <dl class="index">
@@ -94,11 +104,11 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="ru/nsu/bukhanov/snake/controller/GameController.html" class="type-name-link" title="class in ru.nsu.bukhanov.snake.controller">GameController</a> - Class in <a href="ru/nsu/bukhanov/snake/controller/package-summary.html">ru.nsu.bukhanov.snake.controller</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="ru/nsu/bukhanov/snake/controller/GameController.html#%3Cinit%3E()" class="member-name-link">GameController()</a> - Constructor for class ru.nsu.bukhanov.snake.controller.<a href="ru/nsu/bukhanov/snake/controller/GameController.html" title="class in ru.nsu.bukhanov.snake.controller">GameController</a></dt>
+<dt><a href="ru/nsu/bukhanov/snake/controller/GameController.html#%3Cinit%3E(ru.nsu.bukhanov.snake.view.GameView)" class="member-name-link">GameController(GameView)</a> - Constructor for class ru.nsu.bukhanov.snake.controller.<a href="ru/nsu/bukhanov/snake/controller/GameController.html" title="class in ru.nsu.bukhanov.snake.controller">GameController</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="ru/nsu/bukhanov/snake/view/GameRenderer.html" class="type-name-link" title="class in ru.nsu.bukhanov.snake.view">GameRenderer</a> - Class in <a href="ru/nsu/bukhanov/snake/view/package-summary.html">ru.nsu.bukhanov.snake.view</a></dt>
+<dt><a href="ru/nsu/bukhanov/snake/view/GameView.html" class="type-name-link" title="class in ru.nsu.bukhanov.snake.view">GameView</a> - Class in <a href="ru/nsu/bukhanov/snake/view/package-summary.html">ru.nsu.bukhanov.snake.view</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="ru/nsu/bukhanov/snake/view/GameRenderer.html#%3Cinit%3E(javafx.scene.canvas.GraphicsContext,int)" class="member-name-link">GameRenderer(GraphicsContext, int)</a> - Constructor for class ru.nsu.bukhanov.snake.view.<a href="ru/nsu/bukhanov/snake/view/GameRenderer.html" title="class in ru.nsu.bukhanov.snake.view">GameRenderer</a></dt>
+<dt><a href="ru/nsu/bukhanov/snake/view/GameView.html#%3Cinit%3E()" class="member-name-link">GameView()</a> - Constructor for class ru.nsu.bukhanov.snake.view.<a href="ru/nsu/bukhanov/snake/view/GameView.html" title="class in ru.nsu.bukhanov.snake.view">GameView</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="ru/nsu/bukhanov/snake/model/Snake.html#getBody()" class="member-name-link">getBody()</a> - Method in class ru.nsu.bukhanov.snake.model.<a href="ru/nsu/bukhanov/snake/model/Snake.html" title="class in ru.nsu.bukhanov.snake.model">Snake</a></dt>
 <dd>&nbsp;</dd>
@@ -120,6 +130,8 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="ru/nsu/bukhanov/snake/model/Game.html#getSnake()" class="member-name-link">getSnake()</a> - Method in class ru.nsu.bukhanov.snake.model.<a href="ru/nsu/bukhanov/snake/model/Game.html" title="class in ru.nsu.bukhanov.snake.model">Game</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="ru/nsu/bukhanov/snake/controller/GameController.html#getSpeedMultiplier()" class="member-name-link">getSpeedMultiplier()</a> - Method in class ru.nsu.bukhanov.snake.controller.<a href="ru/nsu/bukhanov/snake/controller/GameController.html" title="class in ru.nsu.bukhanov.snake.controller">GameController</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="ru/nsu/bukhanov/snake/model/Game.html#getSpeedMultiplier()" class="member-name-link">getSpeedMultiplier()</a> - Method in class ru.nsu.bukhanov.snake.model.<a href="ru/nsu/bukhanov/snake/model/Game.html" title="class in ru.nsu.bukhanov.snake.model">Game</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="ru/nsu/bukhanov/snake/model/Game.html#getWidth()" class="member-name-link">getWidth()</a> - Method in class ru.nsu.bukhanov.snake.model.<a href="ru/nsu/bukhanov/snake/model/Game.html" title="class in ru.nsu.bukhanov.snake.model">Game</a></dt>
@@ -129,14 +141,16 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:H">H</h2>
 <dl class="index">
-<dt><a href="ru/nsu/bukhanov/snake/controller/GameController.html#handleInput(javafx.scene.input.KeyCode)" class="member-name-link">handleInput(KeyCode)</a> - Method in class ru.nsu.bukhanov.snake.controller.<a href="ru/nsu/bukhanov/snake/controller/GameController.html" title="class in ru.nsu.bukhanov.snake.controller">GameController</a></dt>
+<dt><a href="ru/nsu/bukhanov/snake/controller/GameController.html#handleInput(java.lang.String)" class="member-name-link">handleInput(String)</a> - Method in class ru.nsu.bukhanov.snake.controller.<a href="ru/nsu/bukhanov/snake/controller/GameController.html" title="class in ru.nsu.bukhanov.snake.controller">GameController</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="ru/nsu/bukhanov/snake/view/GameView.html#handleInput(javafx.scene.input.KeyCode)" class="member-name-link">handleInput(KeyCode)</a> - Method in class ru.nsu.bukhanov.snake.view.<a href="ru/nsu/bukhanov/snake/view/GameView.html" title="class in ru.nsu.bukhanov.snake.view">GameView</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="ru/nsu/bukhanov/snake/model/Point.html#hashCode()" class="member-name-link">hashCode()</a> - Method in class ru.nsu.bukhanov.snake.model.<a href="ru/nsu/bukhanov/snake/model/Point.html" title="class in ru.nsu.bukhanov.snake.model">Point</a></dt>
 <dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:I">I</h2>
 <dl class="index">
-<dt><a href="ru/nsu/bukhanov/snake/controller/GameController.html#initialize()" class="member-name-link">initialize()</a> - Method in class ru.nsu.bukhanov.snake.controller.<a href="ru/nsu/bukhanov/snake/controller/GameController.html" title="class in ru.nsu.bukhanov.snake.controller">GameController</a></dt>
+<dt><a href="ru/nsu/bukhanov/snake/view/GameView.html#initialize()" class="member-name-link">initialize()</a> - Method in class ru.nsu.bukhanov.snake.view.<a href="ru/nsu/bukhanov/snake/view/GameView.html" title="class in ru.nsu.bukhanov.snake.view">GameView</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="ru/nsu/bukhanov/snake/model/Game.html#isGameOver()" class="member-name-link">isGameOver()</a> - Method in class ru.nsu.bukhanov.snake.model.<a href="ru/nsu/bukhanov/snake/model/Game.html" title="class in ru.nsu.bukhanov.snake.model">Game</a></dt>
 <dd>&nbsp;</dd>
@@ -172,7 +186,7 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:R">R</h2>
 <dl class="index">
-<dt><a href="ru/nsu/bukhanov/snake/view/GameRenderer.html#render(ru.nsu.bukhanov.snake.model.Game)" class="member-name-link">render(Game)</a> - Method in class ru.nsu.bukhanov.snake.view.<a href="ru/nsu/bukhanov/snake/view/GameRenderer.html" title="class in ru.nsu.bukhanov.snake.view">GameRenderer</a></dt>
+<dt><a href="ru/nsu/bukhanov/snake/controller/GameController.html#render()" class="member-name-link">render()</a> - Method in class ru.nsu.bukhanov.snake.controller.<a href="ru/nsu/bukhanov/snake/controller/GameController.html" title="class in ru.nsu.bukhanov.snake.controller">GameController</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="ru/nsu/bukhanov/snake/model/Direction.html#RIGHT" class="member-name-link">RIGHT</a> - Enum constant in enum class ru.nsu.bukhanov.snake.model.<a href="ru/nsu/bukhanov/snake/model/Direction.html" title="enum class in ru.nsu.bukhanov.snake.model">Direction</a></dt>
 <dd>&nbsp;</dd>
@@ -207,6 +221,8 @@ loadScripts(document, 'script');</script>
 <h2 class="title" id="I:U">U</h2>
 <dl class="index">
 <dt><a href="ru/nsu/bukhanov/snake/model/Direction.html#UP" class="member-name-link">UP</a> - Enum constant in enum class ru.nsu.bukhanov.snake.model.<a href="ru/nsu/bukhanov/snake/model/Direction.html" title="enum class in ru.nsu.bukhanov.snake.model">Direction</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="ru/nsu/bukhanov/snake/controller/GameController.html#update()" class="member-name-link">update()</a> - Method in class ru.nsu.bukhanov.snake.controller.<a href="ru/nsu/bukhanov/snake/controller/GameController.html" title="class in ru.nsu.bukhanov.snake.controller">GameController</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="ru/nsu/bukhanov/snake/model/Game.html#update()" class="member-name-link">update()</a> - Method in class ru.nsu.bukhanov.snake.model.<a href="ru/nsu/bukhanov/snake/model/Game.html" title="class in ru.nsu.bukhanov.snake.model">Game</a></dt>
 <dd>&nbsp;</dd>
