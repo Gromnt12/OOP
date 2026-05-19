@@ -1,65 +1,72 @@
 package ru.nsu.bukhanov.snake.controller;
 
-import javafx.animation.AnimationTimer;
-import javafx.fxml.FXML;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.input.KeyCode;
 import ru.nsu.bukhanov.snake.model.Direction;
 import ru.nsu.bukhanov.snake.model.Game;
-import ru.nsu.bukhanov.snake.view.GameRenderer;
+import ru.nsu.bukhanov.snake.model.food.FastFood;
+import ru.nsu.bukhanov.snake.model.food.SlowFood;
+import ru.nsu.bukhanov.snake.model.food.Food;
+import ru.nsu.bukhanov.snake.view.GameView;
 
 public class GameController {
-    @FXML
-    private Canvas gameCanvas;
-
     private Game game;
-    private GameRenderer renderer;
-    private static final int CELL_SIZE = 30;
+    private final GameView view;
 
-    private static final long BASE_UPDATE_INTERVAL = 150_000_000;
-    private long lastUpdate = 0;
-
-    public void initialize() {
-        game = new Game(20, 20, 3, 15);
-        renderer = new GameRenderer(gameCanvas.getGraphicsContext2D(), CELL_SIZE);
-
-        renderer.render(game);
-
-        AnimationTimer timer = new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-                long currentInterval = (long) (BASE_UPDATE_INTERVAL / game.getSpeedMultiplier());
-
-                if (now - lastUpdate >= currentInterval) {
-                    game.update();
-                    renderer.render(game);
-                    lastUpdate = now;
-                }
-            }
-        };
-        timer.start();
+    public GameController(GameView view) {
+        this.view = view;
+        this.game = new Game(20, 20, 3, 15);
     }
 
-    public void handleInput(KeyCode code) {
+    public void update() {
+        game.update();
+    }
+
+    public double getSpeedMultiplier() {
+        return game.getSpeedMultiplier();
+    }
+
+    public void handleInput(String action) {
         if (game.isGameOver() || game.isGameWon()) {
-            if (code == KeyCode.R) {
+            if ("RESTART".equals(action)) {
                 game = new Game(20, 20, 3, 15);
-                renderer.render(game);
+                render();
             }
             return;
         }
 
         boolean validKey = false;
-
-        switch (code) {
-            case W, UP -> { game.getSnake().setDirection(Direction.UP); validKey = true; }
-            case S, DOWN -> { game.getSnake().setDirection(Direction.DOWN); validKey = true; }
-            case A, LEFT -> { game.getSnake().setDirection(Direction.LEFT); validKey = true; }
-            case D, RIGHT -> { game.getSnake().setDirection(Direction.RIGHT); validKey = true; }
+        switch (action) {
+            case "UP" -> { game.getSnake().setDirection(Direction.UP); validKey = true; }
+            case "DOWN" -> { game.getSnake().setDirection(Direction.DOWN); validKey = true; }
+            case "LEFT" -> { game.getSnake().setDirection(Direction.LEFT); validKey = true; }
+            case "RIGHT" -> { game.getSnake().setDirection(Direction.RIGHT); validKey = true; }
         }
 
         if (validKey && !game.isStarted()) {
             game.start();
         }
+    }
+    public void render() {
+        view.drawBackground(game.getWidth(), game.getHeight());
+        view.drawObstacles(game.getObstacles());
+
+        for (Food food : game.getFoods()) {
+            String type = "APPLE";
+            if (food instanceof FastFood) type = "FAST";
+            else if (food instanceof SlowFood) type = "SLOW";
+
+            view.drawFood(food.getPosition(), type);
+        }
+
+        view.drawSnake(game.getSnake().getBody());
+
+        view.drawHUD(
+                game.getSnake().getBody().size(),
+                game.getSpeedMultiplier(),
+                game.isStarted(),
+                game.isGameOver(),
+                game.isGameWon(),
+                game.getWidth(),
+                game.getHeight()
+        );
     }
 }
