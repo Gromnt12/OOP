@@ -10,6 +10,11 @@ import java.util.List;
 import java.util.Random;
 
 public class Game {
+    private static final double DEFAULT_SPEED = 1.0;
+    private static final int PROBABILITY_MAX = 100;
+    private static final int PROBABILITY_APPLE = 60;
+    private static final int PROBABILITY_FAST = 80;
+
     private final int width;
     private final int height;
     private final int winLength;
@@ -20,7 +25,7 @@ public class Game {
     private final Random random = new Random();
     private boolean isGameOver = false;
     private boolean isGameWon = false;
-    private double speedMultiplier = 1.0;
+    private double speedMultiplier = DEFAULT_SPEED;
     private boolean isStarted = false;
 
     public Game(int width, int height, int foodCount, int winLength) {
@@ -47,7 +52,7 @@ public class Game {
         if (!isStarted || isGameOver || isGameWon) return;
         if (snake.willCollide(width, height, obstacles)) {
             isGameOver = true;
-            return; // Завершаем игру до того, как змейка вошла в стену
+            return;
         }
         snake.move();
         checkFoodCollision();
@@ -81,10 +86,10 @@ public class Game {
             p = new Point(random.nextInt(width), random.nextInt(height));
         } while (snake.getBody().contains(p) || obstacles.contains(p));
 
-        int foodChance = random.nextInt(100);
-        if (foodChance < 60) {
+        int foodChance = random.nextInt(PROBABILITY_MAX);
+        if (foodChance < PROBABILITY_APPLE) {
             foods.add(new Apple(p));
-        } else if (foodChance < 80) {
+        } else if (foodChance < PROBABILITY_FAST) {
             foods.add(new FastFood(p));
         } else {
             foods.add(new SlowFood(p));

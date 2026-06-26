@@ -13,18 +13,37 @@ import ru.nsu.bukhanov.snake.model.Point;
 import java.util.List;
 
 public class GameView {
+    private static final int CELL_SIZE = 30;
+    private static final long BASE_UPDATE_INTERVAL = 150_000_000;
+    private static final String FONT_NAME = "Arial";
+    private static final int FONT_SIZE = 18;
+
+    private static final String TEXT_LENGTH = "Длина: ";
+    private static final String TEXT_SPEED = "Скорость: %.1fx";
+    private static final String TEXT_START = "НАЖМИТЕ WASD ИЛИ СТРЕЛКИ ДЛЯ СТАРТА";
+    private static final String TEXT_GAME_OVER = "ИГРА ОКОНЧЕНА!";
+    private static final String TEXT_WIN = "ВЫ ПОБЕДИЛИ!";
+    private static final String TEXT_RESTART = "Нажмите 'R' для рестарта";
+
+    private static final int HUD_INFO_X = 20;
+    private static final int HUD_LENGTH_Y = 30;
+    private static final int HUD_SPEED_Y = 55;
+    private static final int MSG_START_X = 80;
+    private static final int MSG_GAME_OVER_X = 220;
+    private static final int MSG_WIN_X = 230;
+    private static final int MSG_RESTART_X = 195;
+    private static final int MSG_RESTART_OFFSET_Y = 30;
+
     @FXML
     private Canvas gameCanvas;
     private GraphicsContext gc;
 
     private GameController controller;
-    private static final int CELL_SIZE = 30;
-    private static final long BASE_UPDATE_INTERVAL = 150_000_000;
     private long lastUpdate = 0;
 
     public void initialize() {
         gc = gameCanvas.getGraphicsContext2D();
-        gc.setFont(new Font("Arial", 18));
+        gc.setFont(new Font(FONT_NAME, FONT_SIZE));
         controller = new GameController(this);
         controller.render();
 
@@ -44,11 +63,11 @@ public class GameView {
 
     public void handleInput(KeyCode code) {
         switch (code) {
-            case W, UP -> controller.handleInput("UP");
-            case S, DOWN -> controller.handleInput("DOWN");
-            case A, LEFT -> controller.handleInput("LEFT");
-            case D, RIGHT -> controller.handleInput("RIGHT");
-            case R -> controller.handleInput("RESTART");
+            case W, UP -> controller.handleInput(GameController.ACTION_UP);
+            case S, DOWN -> controller.handleInput(GameController.ACTION_DOWN);
+            case A, LEFT -> controller.handleInput(GameController.ACTION_LEFT);
+            case D, RIGHT -> controller.handleInput(GameController.ACTION_RIGHT);
+            case R -> controller.handleInput(GameController.ACTION_RESTART);
         }
     }
 
@@ -66,8 +85,8 @@ public class GameView {
 
     public void drawFood(Point position, String type) {
         switch (type) {
-            case "FAST" -> gc.setFill(Color.YELLOW);
-            case "SLOW" -> gc.setFill(Color.BLUE);
+            case GameController.FOOD_FAST -> gc.setFill(Color.YELLOW);
+            case GameController.FOOD_SLOW -> gc.setFill(Color.BLUE);
             default -> gc.setFill(Color.RED);
         }
         gc.fillRect(position.x * CELL_SIZE, position.y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
@@ -82,20 +101,22 @@ public class GameView {
 
     public void drawHUD(int length, double speed, boolean started, boolean gameOver, boolean won, int width, int height) {
         gc.setFill(Color.WHITE);
-        gc.fillText("Длина: " + length, 20, 30);
-        gc.fillText(String.format("Скорость: %.1fx", speed), 20, 55);
+        gc.fillText(TEXT_LENGTH + length, HUD_INFO_X, HUD_LENGTH_Y);
+        gc.fillText(String.format(TEXT_SPEED, speed), HUD_INFO_X, HUD_SPEED_Y);
+
+        double centerY = height * CELL_SIZE / 2.0;
 
         if (!started) {
             gc.setFill(Color.WHITE);
-            gc.fillText("НАЖМИТЕ WASD ИЛИ СТРЕЛКИ ДЛЯ СТАРТА", 80, height * CELL_SIZE / 2.0);
+            gc.fillText(TEXT_START, MSG_START_X, centerY);
         } else if (gameOver) {
             gc.setFill(Color.WHITE);
-            gc.fillText("ИГРА ОКОНЧЕНА!", 220, height * CELL_SIZE / 2.0);
-            gc.fillText("Нажмите 'R' для рестарта", 195, height * CELL_SIZE / 2.0 + 30);
+            gc.fillText(TEXT_GAME_OVER, MSG_GAME_OVER_X, centerY);
+            gc.fillText(TEXT_RESTART, MSG_RESTART_X, centerY + MSG_RESTART_OFFSET_Y);
         } else if (won) {
             gc.setFill(Color.YELLOW);
-            gc.fillText("ВЫ ПОБЕДИЛИ!", 230, height * CELL_SIZE / 2.0);
-            gc.fillText("Нажмите 'R' для рестарта", 195, height * CELL_SIZE / 2.0 + 30);
+            gc.fillText(TEXT_WIN, MSG_WIN_X, centerY);
+            gc.fillText(TEXT_RESTART, MSG_RESTART_X, centerY + MSG_RESTART_OFFSET_Y);
         }
     }
 }
