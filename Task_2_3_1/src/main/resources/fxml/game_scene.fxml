@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.nsu.bukhanov.snake.view.GameView">
+    <center>
+        <Canvas fx:id="gameCanvas" width="600" height="600" />
+    </center>
+</BorderPane>
